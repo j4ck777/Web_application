@@ -29,7 +29,7 @@ function Question(text, auther, date){
     this.afterDate=(limitDate)=>this.answers.filter(
         answer=>answer.date.isAfter(dayjs(limitDate))
     );
-    this.listByScore => () => {
+    this.listByScore=()=>{
         const answersCopy=[...this.answers];
         answersCopy.sort((a,b)=>b.score-a.score);
         return answersCopy;
