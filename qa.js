@@ -1,17 +1,20 @@
 'use strict'
 
+const dayjs= require('dayjs');
+
+
 function Answer(text, auther, score, date){
     this.text=text;
     this.auther=auther;
     this.score=score;
-    this.date=date;
+    this.date=dayjs(date);
 
 }
 
 function Question(text, auther, date){
     this.text=text;
     this.auther=auther;
-    this.date=date;
+    this.date=dayjs(date);
     this.answers=[]
     
     
@@ -23,7 +26,14 @@ function Question(text, auther, date){
     }
 
     //this.findAll= auther=>this.answers.filter((a)=>(a.auther=> auther));
-
+    this.afterDate=(limitDate)=>this.answers.filter(
+        answer=>answer.date.isAfter(dayjs(limitDate))
+    );
+    this.listByScore => () => {
+        const answersCopy=[...this.answers];
+        answersCopy.sort((a,b)=>b.score-a.score);
+        return answersCopy;
+    }
 }
 
 const q1= new Question('What day is it?', 'Fulvio', '2023-03-07');
@@ -34,3 +44,4 @@ console.log(q1.findAll('CleverGuy'));
 console.log(q1.findAll('OtherGuy'));
 
 
+debugger;
