@@ -6,13 +6,13 @@ const db= new sqlite.Database('questions.sqlite', (err)=>{
     if(err)throw err;
 });
  
+const questNo = 1;
+const sql =`SELECT author FROM answer WHERE questionId = ?`;//+questNo;
 
-const sql ='SELECT * FROM answer';
-
-let authorList=[];
+let authorList = [];
 
 
-db.all(sql , (err, rows)=>{
+db.all(sql ,[questNo], (err, rows)=>{
     if(err)
         throw err;
     else{
@@ -23,3 +23,8 @@ db.all(sql , (err, rows)=>{
 });
 console.log("author list out site:");
 console.log(authorList);
+setTimeout(()=>{
+    console.log("author list out site, but latter 'callback':");
+    console.log(authorList);
+    
+}, 1000);
